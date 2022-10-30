@@ -86,3 +86,38 @@ class Merchant:
                 faction.PurchaseArmors(point_wanted, self) 
             else:
                 print('You try to sell more armors than you have in possession.')
+    def EndTurn(self):
+        self.weapon_point = self.starting_weapon_point
+        self.armor_point = self.starting_armor_point
+class Orcs(Faction):
+    def __init__(self, name, number_of_units, health_point,attack_point, unit_regeneration_number):
+        super().__init__(name, number_of_units, health_point,attack_point, unit_regeneration_number)
+    def PerformAttack(self):
+        try:
+            if self.first_enemy.is_alive ==True and self.second_enemy.is_alive == True:
+                self.first_enemy.ReceiveAttack(self, (self.attack_point/10)*7)
+                self.second_enemy.ReceiveAttack(self, (self.attack_point/10)*3)
+            elif self.first_enemy.is_alive ==True and self.second_enemy.is_alive == False:
+                self.first_enemy.ReceiveAttack(self, self.attack_point)
+            elif self.first_enemy.is_alive ==False and self.second_enemy.is_alive == True:
+                self.second_enemy.ReceiveAttack(self, self.attack_point)
+            else:
+                pass
+        except AttributeError:
+            print('Before calling this function, use AssgnEnemies function and assign enemies to function, Be sure that you called this function for all factions exists')
+    def ReceiveAttack(self, enemy, point):
+        if enemy == self.first_enemy:
+            point = point*3/4
+        else:
+            point = point*4
+        if self.total_health <= 0:
+            self.is_alive = False
+            print('The faction was destroyed')
+        elif point > self.total_health:
+            self.total_health = 0
+            self.is_alive = False
+            print('The faction was destroyed')
+            
+        else:
+            self.total_health = self.total_health -point
+        self.number_of_units = self.total_health / self.health_point
