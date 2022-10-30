@@ -64,3 +64,16 @@ class Merchant:
         self.starting_weapon_point = starting_weapon_point
         self.starting_armor_point = starting_armor_point
         self.revenue = 0
+    def AssgnFactions(self,first_faction, second_faction, third_faction):
+        self.first_faction = first_faction
+        self.second_faction = second_faction
+        self.third_faction = third_faction
+    def SellWeapons(self, faction, point_wanted):
+        if faction.is_alive == False:
+            print('The faction you want to sell weapons is dead!')
+        else:
+            if point_wanted <= self.weapon_point:
+                self.weapon_point -= point_wanted
+                faction.PurchaseWeapons(point_wanted, self) 
+            else:
+                print('You try to sell more weapons than you have in possession.')
