@@ -121,3 +121,13 @@ class Orcs(Faction):
         else:
             self.total_health = self.total_health -point
         self.number_of_units = self.total_health / self.health_point
+    def PurchaseWeapons(self, point_wanted, merchant):
+        self.attack_point += 2 * point_wanted
+        merchant.revenue += 20 * point_wanted
+        merchant.weapon_point -= point_wanted
+    def PurchaseArmors(self, point_wanted, merchant):
+        self.health_point += 3 * point_wanted
+        merchant.revenue +=  point_wanted
+        merchant.weapon_point -= point_wanted
+    def Print(self):
+        return self.__dict__
