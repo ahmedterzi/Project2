@@ -38,3 +38,12 @@ class Faction:
         else:
             self.total_health = self.total_health -point
         self.number_of_units = self.total_health / self.health_point
+
+    def PurchaseWeapons(self, point_wanted, merchant):
+        self.attack_point += point_wanted
+        merchant.revenue += point_wanted
+        merchant.weapon_point -= point_wanted
+    def PurchaseArmors(self, point_wanted, merchant):
+        self.health_point += point_wanted
+        merchant.revenue += point_wanted
+        merchant.weapon_point -= point_wanted
