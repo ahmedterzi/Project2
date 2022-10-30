@@ -23,3 +23,18 @@ class Faction:
                 pass
         except AttributeError:
             print('Before calling this function, use AssgnEnemies function and assign enemies to function')
+    def ReceiveAttack(self, enemy, point):
+        if enemy == self.first_enemy:
+            point = point
+        else:
+            point = point
+        if self.total_health <= 0:
+            self.is_alive = False
+            print('The faction was destroyed')
+        elif point > self.total_health:
+            self.total_health = 0
+            self.is_alive = False
+            print('The faction was destroyed')
+        else:
+            self.total_health = self.total_health -point
+        self.number_of_units = self.total_health / self.health_point
