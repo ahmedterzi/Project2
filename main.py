@@ -47,3 +47,13 @@ class Faction:
         self.health_point += point_wanted
         merchant.revenue += point_wanted
         merchant.weapon_point -= point_wanted
+    def Print(self):
+        return self.__dict__
+    def EndTurn(self):
+        if self.number_of_units <= 0:
+            self.number_of_units = 0
+            self.is_alive = False
+        else:
+            pass
+        self.number_of_units += self.unit_regeneration_number
+        self.total_health = self.number_of_units * self.health_point
