@@ -77,3 +77,12 @@ class Merchant:
                 faction.PurchaseWeapons(point_wanted, self) 
             else:
                 print('You try to sell more weapons than you have in possession.')
+    def SellArmors(self, faction, point_wanted):
+        if faction.is_alive == False:
+            print('The faction you want to sell armors is dead!')
+        else:
+            if point_wanted <= self.armor_point:
+                self.armor_point -= point_wanted
+                faction.PurchaseArmors(point_wanted, self) 
+            else:
+                print('You try to sell more armors than you have in possession.')
