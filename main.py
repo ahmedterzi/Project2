@@ -57,3 +57,10 @@ class Faction:
             pass
         self.number_of_units += self.unit_regeneration_number
         self.total_health = self.number_of_units * self.health_point
+class Merchant:
+    def __init__(self, starting_weapon_point, starting_armor_point):
+        self.weapon_point = starting_weapon_point
+        self.armor_point = starting_armor_point
+        self.starting_weapon_point = starting_weapon_point
+        self.starting_armor_point = starting_armor_point
+        self.revenue = 0
