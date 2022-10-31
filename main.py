@@ -94,17 +94,30 @@ class Orcs(Faction):
         super().__init__(name, number_of_units, health_point,attack_point, unit_regeneration_number)
     def PerformAttack(self):
         try:
-            if self.first_enemy.is_alive ==True and self.second_enemy.is_alive == True:
-                self.first_enemy.ReceiveAttack(self, (self.attack_point/10)*7)
-                self.second_enemy.ReceiveAttack(self, (self.attack_point/10)*3)
-            elif self.first_enemy.is_alive ==True and self.second_enemy.is_alive == False:
-                self.first_enemy.ReceiveAttack(self, self.attack_point)
-            elif self.first_enemy.is_alive ==False and self.second_enemy.is_alive == True:
-                self.second_enemy.ReceiveAttack(self, self.attack_point)
-            else:
-                pass
+            if isinstance( type(self.first_enemy), Elves) and isinstance(type(self.second_enemy, Dwarwes)):
+                if self.first_enemy.is_alive ==True and self.second_enemy.is_alive == True:
+                    self.first_enemy.ReceiveAttack(self, (self.attack_point/10)*7)
+                    self.second_enemy.ReceiveAttack(self, (self.attack_point/10)*3)
+                elif self.first_enemy.is_alive ==True and self.second_enemy.is_alive == False:
+                    self.first_enemy.ReceiveAttack(self, self.attack_point)
+                elif self.first_enemy.is_alive ==False and self.second_enemy.is_alive == True:
+                    self.second_enemy.ReceiveAttack(self, self.attack_point)
+                else:
+                    pass
+            elif isinstance( type(self.first_enemy), Dwarwes) and isinstance(type(self.second_enemy, Elves)):
+                if self.first_enemy.is_alive ==True and self.second_enemy.is_alive == True:
+                    self.second_enemy.ReceiveAttack(self, (self.attack_point/10)*7)
+                    self.first_enemy.ReceiveAttack(self, (self.attack_point/10)*3)
+                elif self.first_enemy.is_alive ==True and self.second_enemy.is_alive == False:
+                    self.first_enemy.ReceiveAttack(self, self.attack_point)
+                elif self.first_enemy.is_alive ==False and self.second_enemy.is_alive == True:
+                    self.second_enemy.ReceiveAttack(self, self.attack_point)
+                else:
+                    pass
+
         except AttributeError:
             print('Before calling this function, use AssgnEnemies function and assign enemies to function, Be sure that you called this function for all factions exists')
+   
     def ReceiveAttack(self, enemy, point):
         if enemy == self.first_enemy:
             point = point*3/4
@@ -121,19 +134,24 @@ class Orcs(Faction):
         else:
             self.total_health = self.total_health -point
         self.number_of_units = self.total_health / self.health_point
+    
     def PurchaseWeapons(self, point_wanted, merchant):
         self.attack_point += 2 * point_wanted
         merchant.revenue += 20 * point_wanted
         merchant.weapon_point -= point_wanted
+   
     def PurchaseArmors(self, point_wanted, merchant):
         self.health_point += 3 * point_wanted
         merchant.revenue +=  point_wanted
         merchant.weapon_point -= point_wanted
+    
     def Print(self):
         return self.__dict__
 class Elves(Faction):
+    
     def __init__(self, name, number_of_units, health_point,attack_point, unit_regeneration_number):
         super().__init__(name, number_of_units, health_point,attack_point, unit_regeneration_number)
+    
     def PerformAttack(self):
         
         try:
@@ -159,8 +177,9 @@ class Elves(Faction):
                     pass
         except AttributeError:
             print('Before calling this function, use AssgnEnemies function and assign enemies to function, Be sure that you called this function for all factions exists')
+    
     def ReceiveAttack(self, enemy, point):
-        if enemy == self.first_enemy:
+        if isinstance(type(enemy), Orcs):
             point = point*6/5
         else:
             point = point*3/4
@@ -174,21 +193,26 @@ class Elves(Faction):
         else:
             self.total_health = self.total_health -point
         self.number_of_units = self.total_health / self.health_point
+    
     def PurchaseWeapons(self, point_wanted, merchant):
         self.attack_point += 2 * point_wanted
         merchant.revenue += 15 * point_wanted
         merchant.weapon_point -= point_wanted
+    
     def PurchaseArmors(self, point_wanted, merchant):
         self.health_point += 4 * point_wanted
         merchant.revenue +=  5 * point_wanted
         merchant.weapon_point -= point_wanted
+    
     def Print(self):
         return self.__dict__
 
 
 class Dwarwes(Faction):
+    
     def __init__(self, name, number_of_units, health_point,attack_point, unit_regeneration_number):
         super().__init__(name, number_of_units, health_point,attack_point, unit_regeneration_number)
+    
     def PerformAttack(self):
         try:     
             if self.first_enemy.is_alive ==True and self.second_enemy.is_alive == True:
@@ -218,13 +242,16 @@ class Dwarwes(Faction):
         else:
             self.total_health = self.total_health -point
         self.number_of_units = self.total_health / self.health_point
+    
     def PurchaseWeapons(self, point_wanted, merchant):
         self.attack_point += point_wanted
         merchant.revenue += 10 * point_wanted
         merchant.weapon_point -= point_wanted
+    
     def PurchaseArmors(self, point_wanted, merchant):
         self.health_point += 2 * point_wanted
         merchant.revenue +=  3 * point_wanted
         merchant.weapon_point -= point_wanted
+    
     def Print(self):
         return self.__dict__
