@@ -135,16 +135,28 @@ class Elves(Faction):
     def __init__(self, name, number_of_units, health_point,attack_point, unit_regeneration_number):
         super().__init__(name, number_of_units, health_point,attack_point, unit_regeneration_number)
     def PerformAttack(self):
+        
         try:
-            if self.first_enemy.is_alive ==True and self.second_enemy.is_alive == True:
-                self.first_enemy.ReceiveAttack(self, (self.attack_point/10)*4)
-                self.second_enemy.ReceiveAttack(self, (self.attack_point/10)*9)
-            elif self.first_enemy.is_alive ==True and self.second_enemy.is_alive == False:
-                self.first_enemy.ReceiveAttack(self, self.attack_point)
-            elif self.first_enemy.is_alive ==False and self.second_enemy.is_alive == True:
-                self.second_enemy.ReceiveAttack(self, self.attack_point*3/2)
-            else:
-                pass
+            if isinstance( type(self.first_enemy), Orcs) and isinstance(type(self.second_enemy, Dwarwes)):
+                if self.first_enemy.is_alive ==True and self.second_enemy.is_alive == True:
+                    self.first_enemy.ReceiveAttack(self, (self.attack_point/10)*4)
+                    self.second_enemy.ReceiveAttack(self, (self.attack_point/10)*9)
+                elif self.first_enemy.is_alive ==True and self.second_enemy.is_alive == False:
+                    self.first_enemy.ReceiveAttack(self, self.attack_point)
+                elif self.first_enemy.is_alive ==False and self.second_enemy.is_alive == True:
+                    self.second_enemy.ReceiveAttack(self, self.attack_point*3/2)
+                else:
+                    pass
+            elif isinstance(type(self.first_enemy), Dwarwes) and isinstance( type(self.second_enemy), Orcs):
+                if self.first_enemy.is_alive ==True and self.second_enemy.is_alive == True:
+                    self.second_enemy.ReceiveAttack(self, (self.attack_point/10)*4)
+                    self.first_enemy.ReceiveAttack(self, (self.attack_point/10)*9)
+                elif self.first_enemy.is_alive ==True and self.second_enemy.is_alive == False:
+                    self.first_enemy.ReceiveAttack(self, self.attack_point*3/2)
+                elif self.first_enemy.is_alive ==False and self.second_enemy.is_alive == True:
+                    self.second_enemy.ReceiveAttack(self, self.attack_point)
+                else:
+                    pass
         except AttributeError:
             print('Before calling this function, use AssgnEnemies function and assign enemies to function, Be sure that you called this function for all factions exists')
     def ReceiveAttack(self, enemy, point):
@@ -173,7 +185,7 @@ class Elves(Faction):
     def Print(self):
         return self.__dict__
 
-        
+
 class Dwarwes(Faction):
     def __init__(self, name, number_of_units, health_point,attack_point, unit_regeneration_number):
         super().__init__(name, number_of_units, health_point,attack_point, unit_regeneration_number)
